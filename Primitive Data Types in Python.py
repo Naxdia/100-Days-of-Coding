@@ -28,7 +28,7 @@ print("Colors: ", colors)
 person = {
     "name": "Alice", "age": 30, "location": "Wonderland"
 }
-print("Person (Name/Age/Location): ", person["location"])
+print("Person (Name/Age/Location):", person["name"], person["age"], person["location"])
 
 #Set: This is an unordered collection of unique items
 random_sequence = {1, "Fish", 3.14, "Toyota", 32}

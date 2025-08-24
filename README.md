@@ -1,1 +1,1 @@
-"100-Days-of-Coding is only for tracking references.
+"100-Days-of-Coding is only for recording progress."

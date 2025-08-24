@@ -1,37 +1,12 @@
-#Primitive Data Types in Python
+#Type Errors
 
-#String: This is a sequence of characters
-name = "John Doe"
-print("Name: ", name)
+#The following line will cause a TypeError because it tries to concatenate a string with an integer.
+###print("Number of letters in your name: " + len(input("What is your name? ")))
 
-#Integer: This is a whole number 
-age = 25
-print("Age: ", age)
+#To fix the error, we can convert the integer to a string using the str() function.
+###print("Number of letters in your name: " + str(len(input("What is your name? "))))
 
-#Float: This is a number with a decimal point
-height = 6.1
-print("Height: ", height)   
-
-#Boolean: This represents True or False values
-is_learning = True
-print("Is learning Python: ", is_learning)
-
-#List: This is an ordered collection of items
-fruits = ["apple", "banana", "cherry"]
-print("Fruits: ", fruits)
-
-#Tuple: This is an immutable (nothing can be changed) ordered collection of items
-colors = ("red", "green", "blue")
-print("Colors: ", colors)
-
-#Dictionary: This is a collection of key-value pairs
-person = {
-    "name": "Alice", "age": 30, "location": "Wonderland"
-}
-print("Person (Name/Age/Location):", person["name"], person["age"], person["location"])
-
-#Set: This is an unordered collection of unique items
-random_sequence = {1, "Fish", 3.14, "Toyota", 32}
-print("Unique Numbers: ", random_sequence)
-
-
+#If we wanted to use the data given by the user, we could store it in a variable.
+user_name = input("What is your name? ") #str
+length_of_name = len(user_name) #int
+print("Number of letters in your name: " + str(length_of_name))

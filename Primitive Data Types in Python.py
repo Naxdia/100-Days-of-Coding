@@ -1,12 +1,18 @@
-#Type Errors
+#Tip calculator
 
-#The following line will cause a TypeError because it tries to concatenate a string with an integer.
-###print("Number of letters in your name: " + len(input("What is your name? ")))
+print("Welcome to the tip calculator!")
+bill = float(input("What was the total bill? $"))
+tip = float(input("What percentage tip would you like to give? "))
+split = int(input("How many people to split the bill? "))
 
-#To fix the error, we can convert the integer to a string using the str() function.
-###print("Number of letters in your name: " + str(len(input("What is your name? "))))
+total_bill = bill + (bill * tip / 100)
 
-#If we wanted to use the data given by the user, we could store it in a variable.
-user_name = input("What is your name? ") #str
-length_of_name = len(user_name) #int
-print("Number of letters in your name: " + str(length_of_name))
+round(total_bill, 2)
+
+if split == 0:
+    print("Number of people cannot be zero.")
+elif split == 1:
+    print(f"You should pay: ${total_bill}")
+else:
+    bill_per_person = total_bill / split
+    print(f"Each person should pay: ${bill_per_person}")

@@ -1,37 +1,4 @@
 # # Day 7: Modules and Functions - Hangman Game
-# #  Modules are files containing Python code. They can define functions, classes, and variables.
-
-# import random
-# from Hangman_List import word_list
-# # print(word_list) 
-
-# random_word = random.choice(word_list)
-# print(random_word)
-
-# lives = 7
-
-# blank_word = ""
-# for letter in random_word:
-#     blank_word += "_"
-# print(blank_word)
-
-# correct_guesses = []
-
-# while lives > 0:
-#     print(blank_word)
-#     user_guess = input("Guess a letter.\n").lower()
-#     if user_guess in random_word:
-#         print(f"You guessed {user_guess}. That's in the word!")
-#         correct_guesses.append(user_guess)
-#         print(f"Correct guesses so far: {', '.join(correct_guesses)}")
-#     else:
-#         lives -= 1
-#         print(f"You guessed {user_guess}. That's not in the word. You lose a life.")
-#         print(f"You have {lives} lives left.")
-
-
-# if correct_guesses == random_word:
-#     print
 
 import random
 from Hangman_List import word_list

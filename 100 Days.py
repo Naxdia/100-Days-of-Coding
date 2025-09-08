@@ -1,36 +1,47 @@
-#Day 5: Password Generator Project
+# # Day 7: Modules and Functions - Hangman Game
+
 import random
+from Hangman_List import word_list
 
-letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
+word_to_guess = random.choice(word_list)
+lives = 7
+print(word_to_guess)
+#Tuples are immatable; we use a list so correct_guesses can be sorted and changed
+correct_guesses = []
+incorrect_guesses = []
+blank_word = ""
 
-print("Welcome to the random password generator!")
+for letter in word_to_guess:
+    blank_word += "_"
 
-#Ask user for number of letters, numbers and symbols
-num_letters = int(input("How many letters would you like in your password?\n"))
-num_numbers = int(input("How many numbers would you like?\n"))
-num_symbols = int(input("How many symbols would you like?\n"))
+#The first if statement checks if the user has won before asking for a guess
+while lives > 0:
+    if blank_word == word_to_guess:
+        print(f"You win! The word was {word_to_guess}.")
+        break
+    print(blank_word)
+    user_guess = input("Guess a letter.\n").lower()
+    if blank_word == word_to_guess:
+        print(f"You win! The word was {word_to_guess}.")
+        break
+    elif user_guess in word_to_guess and user_guess not in correct_guesses:
+        print(f"You guessed {user_guess}. That's in the word!")
+        # Index refers to the position of the letter in the word, the "," unpacks the enumerate object into index and letter within the for loop and enumerate gives the word_to_guess an index position
+        for index, letter in enumerate(word_to_guess):
+            #Correctly guessed letter is placed in the blank_word string
+            if letter == user_guess:
+                # [:index] gets everything before the index, user_guess adds the guessed letter, [index + 1:] gets everything after the index
+                blank_word = blank_word[:index] + user_guess + blank_word[index + 1:]
+        correct_guesses.append(user_guess)
+        correct_guesses = sorted(correct_guesses)
+        print(f"Correct guesses so far: {(correct_guesses)}")
+    # If the entire word has been guessed correctly
 
-#Empty list to hold password characters
-password_list = []
-
-#For loop cycles through each character type and appends a random choice to the password list
-for char in range(0, num_letters):
-    password_list.append(random.choice(letters))
-
-for char in range(0, num_numbers):
-    password_list.append(random.choice(numbers))
-
-for char in range(0, num_symbols):
-    password_list.append(random.choice(symbols))
-
-#Empty string to hold final password
-password = ""
-
-#Shuffle the password list to ensure randomness and then concatenate each character to form the final password
-random.shuffle(password_list)
-for char in password_list:
-    password += char
-
-print(f"Your password is: {password}")
+    # If the guessed letter is not in the word and hasn't been guessed before
+    elif user_guess not in word_to_guess and user_guess not in incorrect_guesses:
+        lives -= 1
+        incorrect_guesses.append(user_guess)
+        incorrect_guesses = sorted(incorrect_guesses)
+        print(f"You guessed {user_guess}. That's not in the word. You lose a life.")
+        print(f"You have {lives} lives left.")
+        print(f"Incorrect guesses so far: {(incorrect_guesses)}")

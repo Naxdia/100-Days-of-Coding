@@ -1,4 +1,4 @@
-word_list = ['ant', 
+word_list = word_list = ['ant', 
 'baboon',
 'badger',
 'bat', 
@@ -63,4 +63,4 @@ word_list = ['ant',
 'wombat', 
 'zebra']
 
-# print(word_list)
+print(word_list)

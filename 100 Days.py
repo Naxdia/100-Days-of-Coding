@@ -1,47 +1,26 @@
-# # Day 7: Modules and Functions - Hangman Game
+#Day 8 - Caesar Cipher
 
-import random
-from Hangman_List import word_list
+alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+direction = input("Type 'encode' to encrypt, type 'decode' to decrypt: ")
+text = input("Enter text to encrypt: ")
+shift = int(input("Enter shift number: "))
 
-word_to_guess = random.choice(word_list)
-lives = 7
-print(word_to_guess)
-#Tuples are immatable; we use a list so correct_guesses can be sorted and changed
-correct_guesses = []
-incorrect_guesses = []
-blank_word = ""
 
-for letter in word_to_guess:
-    blank_word += "_"
 
-#The first if statement checks if the user has won before asking for a guess
-while lives > 0:
-    if blank_word == word_to_guess:
-        print(f"You win! The word was {word_to_guess}.")
-        break
-    print(blank_word)
-    user_guess = input("Guess a letter.\n").lower()
-    if blank_word == word_to_guess:
-        print(f"You win! The word was {word_to_guess}.")
-        break
-    elif user_guess in word_to_guess and user_guess not in correct_guesses:
-        print(f"You guessed {user_guess}. That's in the word!")
-        # Index refers to the position of the letter in the word, the "," unpacks the enumerate object into index and letter within the for loop and enumerate gives the word_to_guess an index position
-        for index, letter in enumerate(word_to_guess):
-            #Correctly guessed letter is placed in the blank_word string
-            if letter == user_guess:
-                # [:index] gets everything before the index, user_guess adds the guessed letter, [index + 1:] gets everything after the index
-                blank_word = blank_word[:index] + user_guess + blank_word[index + 1:]
-        correct_guesses.append(user_guess)
-        correct_guesses = sorted(correct_guesses)
-        print(f"Correct guesses so far: {(correct_guesses)}")
-    # If the entire word has been guessed correctly
+def caesar(original_text, shift_amount, encode_or_decode):
+    result_text = ""
+    # This "if" statement handles decoding by reversing the shift direction
+    if encode_or_decode == "decode":
+        #Shift amount = -1 is the same as shift_amount = shift_amount * -1, which reverses the shift direction
+        shift_amount *= -1
+    # This for loop goes through each letter in the original text
+    for letter in original_text:
+        # We create a new variable to hold the shifted position of the letter
+        shifted_position = alphabet.index(letter) + shift_amount
+        # Modulo operator ensures that the shifted position wraps around the alphabet
+        shifted_position %= len(alphabet)
+        result_text += alphabet[shifted_position]
 
-    # If the guessed letter is not in the word and hasn't been guessed before
-    elif user_guess not in word_to_guess and user_guess not in incorrect_guesses:
-        lives -= 1
-        incorrect_guesses.append(user_guess)
-        incorrect_guesses = sorted(incorrect_guesses)
-        print(f"You guessed {user_guess}. That's not in the word. You lose a life.")
-        print(f"You have {lives} lives left.")
-        print(f"Incorrect guesses so far: {(incorrect_guesses)}")
+    print(f"Here's the encoded result: {result_text}")
+
+caesar(original_text = text, shift_amount = shift, encode_or_decode = direction)

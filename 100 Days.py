@@ -1,47 +1,41 @@
-# # Day 7: Modules and Functions - Hangman Game
+#Day 9 - Secret Auction
 
-import random
-from Hangman_List import word_list
+print("Welcome to the secret auction.")
+#Dictionary to store bidders and bids
 
-word_to_guess = random.choice(word_list)
-lives = 7
-print(word_to_guess)
-#Tuples are immatable; we use a list so correct_guesses can be sorted and changed
-correct_guesses = []
-incorrect_guesses = []
-blank_word = ""
+#Creating a fuction to determine the highest bidder
+def highest_bidder(bidding_dict):
+    #Set initial highest amount to 0
+    highest_amount = 0
+    #For loop to go through each bidder in the bidding dictionary
+    for bidder in bidding_dict:
+        #Bid amount is retrieved from dictionary's key
+        bid_amount = bidding_dict[bidder]
+        if bid_amount > highest_amount:
+            #If current bid amount is higher than highest amount, update highest amount and winner
+            highest_amount = bid_amount
+            winner = bidder
+    print(f"The winner is {winner} with a bid of ${highest_amount}")
 
-for letter in word_to_guess:
-    blank_word += "_"
+    for i in bidding_dict:
+        print(f"{name} bid ${bidding_dict[name]}")
 
-#The first if statement checks if the user has won before asking for a guess
-while lives > 0:
-    if blank_word == word_to_guess:
-        print(f"You win! The word was {word_to_guess}.")
-        break
-    print(blank_word)
-    user_guess = input("Guess a letter.\n").lower()
-    if blank_word == word_to_guess:
-        print(f"You win! The word was {word_to_guess}.")
-        break
-    elif user_guess in word_to_guess and user_guess not in correct_guesses:
-        print(f"You guessed {user_guess}. That's in the word!")
-        # Index refers to the position of the letter in the word, the "," unpacks the enumerate object into index and letter within the for loop and enumerate gives the word_to_guess an index position
-        for index, letter in enumerate(word_to_guess):
-            #Correctly guessed letter is placed in the blank_word string
-            if letter == user_guess:
-                # [:index] gets everything before the index, user_guess adds the guessed letter, [index + 1:] gets everything after the index
-                blank_word = blank_word[:index] + user_guess + blank_word[index + 1:]
-        correct_guesses.append(user_guess)
-        correct_guesses = sorted(correct_guesses)
-        print(f"Correct guesses so far: {(correct_guesses)}")
-    # If the entire word has been guessed correctly
+bids = {}
+#more_bidders act a flag to continue or stop the bidding process
+more_bidders = True
+highest_bid = 0
+while more_bidders:
+    name = input("What is your name?: ")
+    amount = int(input("What is your bid?: $"))
 
-    # If the guessed letter is not in the word and hasn't been guessed before
-    elif user_guess not in word_to_guess and user_guess not in incorrect_guesses:
-        lives -= 1
-        incorrect_guesses.append(user_guess)
-        incorrect_guesses = sorted(incorrect_guesses)
-        print(f"You guessed {user_guess}. That's not in the word. You lose a life.")
-        print(f"You have {lives} lives left.")
-        print(f"Incorrect guesses so far: {(incorrect_guesses)}")
+    #bids dictionary updated with name and amount
+    bids[name] = amount
+    continue_bidding = input("Are there any other bidders? Type 'Yes' or 'No'.\n").lower()
+    if continue_bidding == "yes":
+        more_bidders = True
+    else:
+        more_bidders = False
+        highest_bidder(bids)
+
+
+

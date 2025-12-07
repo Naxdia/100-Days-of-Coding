@@ -1,3 +1,4 @@
+ Day-10---Calculator
 #Day 10 - Calculator Project
 
 #Defining functions for each operation
@@ -47,7 +48,4 @@ def calculator():
               
         
 calculator()
-
-
-
 

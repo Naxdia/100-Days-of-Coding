@@ -1,26 +1,51 @@
-#Day 8 - Caesar Cipher
+ Day-10---Calculator
+#Day 10 - Calculator Project
 
-alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
-direction = input("Type 'encode' to encrypt, type 'decode' to decrypt: ")
-text = input("Enter text to encrypt: ")
-shift = int(input("Enter shift number: "))
+#Defining functions for each operation
+def add(n1, n2):
+    return n1 + n2
+def subtract(n1, n2):
+    return n1 - n2
+def multiply(n1, n2):
+    return n1 * n2
+def divide(n1, n2):
+    return n1 / n2
+
+operations = {"+": add,
+              "-": subtract,
+              "*": multiply,
+              "/": divide
+              }
+### operations["*"] is equivalent to the word 'multiply' which calls that function
+#print(operations["*"](4,8))
 
 
 
-def caesar(original_text, shift_amount, encode_or_decode):
-    result_text = ""
-    # This "if" statement handles decoding by reversing the shift direction
-    if encode_or_decode == "decode":
-        #Shift amount = -1 is the same as shift_amount = shift_amount * -1, which reverses the shift direction
-        shift_amount *= -1
-    # This for loop goes through each letter in the original text
-    for letter in original_text:
-        # We create a new variable to hold the shifted position of the letter
-        shifted_position = alphabet.index(letter) + shift_amount
-        # Modulo operator ensures that the shifted position wraps around the alphabet
-        shifted_position %= len(alphabet)
-        result_text += alphabet[shifted_position]
 
-    print(f"Here's the encoded result: {result_text}")
+def calculator():
+    num1 = float(input("What is the first number?: "))
+    should_continue = True
+    #For loop to iterate through the dictionary and print the keys for the user to see what operations are available
+    while should_continue:
+        for symbol in operations:
+            print(symbol)
+        operation_symbol = input("Pick an operation from the line above: ")
+        num2 = float(input("What is the second number?: "))
+        result = (operations[operation_symbol](num1, num2))
+        #Displaying the entire equation to the user
+        print(f"{num1} {operation_symbol} {num2} = {result}")
 
-caesar(original_text = text, shift_amount = shift, encode_or_decode = direction)
+        choice = input(f"Type 'y' to continue calculating with {result}, or type 'n' to start a new calculation or 'exit' to leave the program: ")
+        if choice == "y":
+            num1 = result
+        elif choice == "n":
+            print("\n"*20)
+            #Recursive call to restart the calculator function
+            calculator()
+        else:
+            choice == "exit"
+            return
+              
+        
+calculator()
+
